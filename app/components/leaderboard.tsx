@@ -7,6 +7,7 @@ interface Team {
   elo: number;
   wins: number;
   losses: number;
+  ot_losses: number;
   cupDifferential: number;
 }
 
@@ -26,6 +27,7 @@ const Leaderboard = ({ teams }: LeaderboardProps) => {
             <th className="p-2">ELO</th>
             <th className="p-2">Wins</th>
             <th className="p-2">Losses</th>
+            <th className="p-2">OT Losses</th>
             <th className="p-2">Cup Differential</th>
           </tr>
         </thead>
@@ -37,6 +39,7 @@ const Leaderboard = ({ teams }: LeaderboardProps) => {
                 <td className="p-2 text-center">{Math.round(team.elo)}</td>
                 <td className="p-2 text-center">{team.wins}</td>
                 <td className="p-2 text-center">{team.losses}</td>
+                <td className="p-2 text-center">{team.ot_losses}</td>
                 <td className="p-2 text-center">{team.cupDifferential}</td>
             </tr>
           ))}

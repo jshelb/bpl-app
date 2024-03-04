@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 
 interface NewSeasonOverlayProps {
   onClose: () => void;
-  apiEndpoint: string;
 }
 
-const NewSeasonOverlay: React.FC<NewSeasonOverlayProps> = ({ onClose, apiEndpoint }) => {
+const NewSeasonOverlay: React.FC<NewSeasonOverlayProps> = ({ onClose }) => {
   const [textInput, setTextInput] = useState('');
 
   const handleUpload = async () => {
@@ -17,7 +16,7 @@ const NewSeasonOverlay: React.FC<NewSeasonOverlayProps> = ({ onClose, apiEndpoin
       console.log(teams);
 
       // Send a POST request to the specified API endpoint using fetch
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch("/api/upload", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +32,9 @@ const NewSeasonOverlay: React.FC<NewSeasonOverlayProps> = ({ onClose, apiEndpoin
       onClose();
     } catch (error) {
       console.error('Error uploading teams:', error);
+    } finally {
+        // Always close the overlay whether successful or not
+        onClose();
     }
   };
 

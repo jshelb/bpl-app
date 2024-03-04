@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/api/teams")
 def get_teams_endpoint():
     """
-    Retrieves and returns a JSON representation of all teams from the database.
+    Retrieves and returns a JSON representation of all teams and their data from the database.
     """
     teams_json = get_teams()
     return jsonify(teams=teams_json)
@@ -39,6 +39,7 @@ def score_game_endpoint():
     Expects a POST request with a JSON payload containing 'team1', 'team2', 'cups1', and 'cups2' keys.
     """
     game_info = request.get_json()
+    print(game_info)
     team1 = game_info.get('team1', '')
     team2 = game_info.get('team2', '')
     cups1 = game_info.get('cups1', 0)
