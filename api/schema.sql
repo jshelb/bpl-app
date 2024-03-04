@@ -2,9 +2,11 @@
 CREATE TABLE Teams (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
+    points INTEGER NOT NULL,
     elo INTEGER NOT NULL,
     wins INTEGER NOT NULL,
     losses INTEGER NOT NULL,
+    ot_losses INTEGER NOT NULL,
     cupDifferential INTEGER NOT NULL
 );
 

@@ -34,7 +34,7 @@ const Leaderboard = ({ teams }: LeaderboardProps) => {
             <tr key={team.id}>
                 <td className="p-2 text-center">{index + 1}</td>
                 <td className="p-2 text-center">{team.name}</td>
-                <td className="p-2 text-center">{team.elo}</td>
+                <td className="p-2 text-center">{Math.round(team.elo)}</td>
                 <td className="p-2 text-center">{team.wins}</td>
                 <td className="p-2 text-center">{team.losses}</td>
                 <td className="p-2 text-center">{team.cupDifferential}</td>

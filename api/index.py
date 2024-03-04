@@ -1,41 +1,55 @@
-from flask import Flask, jsonify
-import sqlite3
+from flask import Flask, jsonify, request
+from api.db_utils import score_game
+from db_utils import get_teams, upload_teams
+
 app = Flask(__name__)
-
-@app.route("/api/python")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-
-# Function to get a database connection
-def get_db_connection():
-    """
-    Note that paths are relative to the base directory when run via "npm dev" or other root
-    """
-    conn = sqlite3.connect('api/bpl_data.db')  # path is relative to base dir
-    conn.row_factory = sqlite3.Row
-    return conn
 
 # Endpoint to get all teams data
 @app.route("/api/teams")
-def get_teams():
-    try:
-        # Get a database connection
-        connection = get_db_connection()
-        cursor = connection.cursor()
+def get_teams_endpoint():
+    """
+    Retrieves and returns a JSON representation of all teams from the database.
+    """
+    teams_json = get_teams()
+    return jsonify(teams=teams_json)
 
-        # Execute a query to fetch all teams data
-        cursor.execute("SELECT * FROM Teams")
-        teams_data = cursor.fetchall()
+# Endpoint to handle team upload
+@app.route("/api/upload", methods=["POST"])
+def upload_teams_endpoint():
+    """
+    Handles the upload of a list of team names to the database. 
+    Removes existing teams and inserts new teams. 
+    Expects a POST request with a JSON payload containing a 'teams' key.
+    """
+    team_info = request.get_json()
+    teams = team_info.get('teams', [])
 
-        # Close the database connection
-        connection.close()
+    success = upload_teams(teams)
 
-        # Convert the result to a JSON format and return
-        teams_json = [{'id': row['id'], 'name': row['name'], 'elo': row['elo'], 'wins': row['wins'], 
-        'losses': row['losses'], 'cupDifferential': row['cupDifferential']} for row in teams_data]
-        return jsonify(teams=teams_json)
+    if success:
+        return jsonify(message="Teams uploaded successfully")
+    else:
+        return jsonify(error="Internal Server Error"), 500
 
-    except Exception as e:
-        # Handle any exceptions, such as database connection errors
-        return jsonify(error=str(e))
+# Endpoint to score a game
+@app.route("/api/score_game", methods=["POST"])
+def score_game_endpoint():
+    """
+    Receives game data (team1, team2, cups1, and cups2) and updates the Games and Teams tables in the database.
+    Expects a POST request with a JSON payload containing 'team1', 'team2', 'cups1', and 'cups2' keys.
+    """
+    game_info = request.get_json()
+    team1 = game_info.get('team1', '')
+    team2 = game_info.get('team2', '')
+    cups1 = game_info.get('cups1', 0)
+    cups2 = game_info.get('cups2', 0)
+
+    success = score_game(team1, team2, cups1, cups2)
+
+    if success:
+        return jsonify(message="Game scored successfully")
+    else:
+        return jsonify(error="Internal Server Error"), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)

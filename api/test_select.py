@@ -21,7 +21,8 @@ def test_select():
         # Print the result
         print("Teams Data:")
         for row in teams_data:
-            print(f"ID: {row[0]}, Name: {row[1]}, Elo: {row[2]}, Wins: {row[3]}, Losses: {row[4]}, Cup Differential: {row[5]}")
+            print(f"ID: {row[0]}, Name: {row[1]}, Points: {row[2]}, Elo: {row[3]}, Wins: {row[4]}, "
+                    f"Losses: {row[5]}, OT Losses {row[6]}, Cup Differential: {row[7]}")
 
         # Close the database connection
         connection.close()

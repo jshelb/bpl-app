@@ -15,12 +15,12 @@ def insert_team():
         connection = sqlite3.connect('bpl_data.db')
         cursor = connection.cursor()
 
-        # Insert the team into the database
+        # Insert the test team into the database
         insert_team_query = """
-            INSERT INTO Teams (name, elo, wins, losses, cupDifferential) 
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO Teams (name, points, elo, wins, losses, ot_losses, cupDifferential) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """
-        test_team_data = ("test/team", 1500, 0, 0, 0)  # Adjust values as needed
+        test_team_data = ("test/team", 100, 1500, 0, 0, 0, 0)
         cursor.execute(insert_team_query, test_team_data)
 
         # Commit changes and close the database connection
