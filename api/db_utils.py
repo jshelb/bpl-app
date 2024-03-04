@@ -37,7 +37,7 @@ def get_teams():
         connection, cursor = get_db_connection()
 
         # Execute a query to fetch all teams data
-        cursor.execute("SELECT * FROM Teams ORDER BY points DESC")
+        cursor.execute("SELECT * FROM Teams ORDER BY points DESC, cupDifferential DESC")
         teams_data = cursor.fetchall()
         connection.close()
 

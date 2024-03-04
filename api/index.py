@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from api.db_utils import score_game
+from api.scheduler import generate_schedule, schedule_summary
 from db_utils import get_teams, upload_teams
 
 app = Flask(__name__)
@@ -39,7 +40,7 @@ def score_game_endpoint():
     Expects a POST request with a JSON payload containing 'team1', 'team2', 'cups1', and 'cups2' keys.
     """
     game_info = request.get_json()
-    print(game_info)
+    # print(game_info)
     team1 = game_info.get('team1', '')
     team2 = game_info.get('team2', '')
     cups1 = game_info.get('cups1', 0)
@@ -51,6 +52,44 @@ def score_game_endpoint():
         return jsonify(message="Game scored successfully")
     else:
         return jsonify(error="Internal Server Error"), 500
+
+
+@app.route("/api/generate_schedule", methods=["POST"])
+def generate_schedule_endpoint():
+    try:
+        data = request.get_json()
+
+        num_wks = int(data.get("num_weeks", 0))
+        num_groups = int(data.get("num_groups", 0))
+
+        # Validate input
+        if not num_wks or not num_groups:
+            return jsonify(error="Invalid input. Please provide num_weeks, and num_groups."), 400
+
+        # Generate schedule
+        teams_data = get_teams()
+        teams = [team['name'] for team in teams_data]
+        result_schedule = generate_schedule(teams, num_wks, num_groups)
+
+        # Prepare response
+        response = {"schedule": []}
+
+        # Structure the schedule
+        for i, week in enumerate(result_schedule, 1):
+            week_data = {"week": i, "groups": []}
+            for j, group in enumerate(week, 1):
+                group_data = {"group": j, "teams": group}
+                week_data["groups"].append(group_data)
+            response["schedule"].append(week_data)
+
+        # Generate and display schedule summary
+        summary = schedule_summary(result_schedule)
+        # summary_data = {"total_games": summary["total_games"], "games_per_team": summary["games_per_team"]}
+
+        return jsonify({ "scheduleData": response, "summary": summary})
+
+    except Exception as e:
+        return jsonify(error=str(e)), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -13,13 +13,8 @@ const Tools: React.FC<ToolsProps> = ({ onTeamsUpdate, onNavigateToScheduler }) =
   const [isScoreGameOverlayVisible, setScoreGameOverlayVisible] = useState(false); // Add state for ScoreGameOverlay
 
 
-  const handleNewSeasonClick = () => {
-    setNewSeasonOverlayVisible(true);
-  };
-
-  const handleScoreGameClick = () => {
-    setScoreGameOverlayVisible(true);
-  };
+  const handleNewSeasonClick = () => setNewSeasonOverlayVisible(true);
+  const handleScoreGameClick = () => setScoreGameOverlayVisible(true);
 
   const closeNewSeasonOverlay = () => {
     setNewSeasonOverlayVisible(false);
@@ -47,9 +42,9 @@ const Tools: React.FC<ToolsProps> = ({ onTeamsUpdate, onNavigateToScheduler }) =
       )}
 
       {isScoreGameOverlayVisible && (
-              <ScoreGameOverlay
-                onClose={closeScoreGameOverlay}
-              />
+        <ScoreGameOverlay
+          onClose={closeScoreGameOverlay}
+        />
       )}
     </div>
   );

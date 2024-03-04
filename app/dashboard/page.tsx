@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Leaderboard from '../components/leaderboard';
 import Tools from '../components/tools';
+import { useRouter } from 'next/navigation';
 
 interface Team {
   id: number;
@@ -44,9 +45,11 @@ const DashboardPage: React.FC = () => {
     fetchTeamsData(); // Fetch updated teams data
   };
 
+  const router = useRouter();
   const handleNavigateToScheduler = () => {
     // Implement navigation to scheduler logic
     console.log('Navigating to scheduler');
+    router.push('/scheduler');
   };
 
   return (
