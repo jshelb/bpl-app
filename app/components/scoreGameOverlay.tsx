@@ -1,16 +1,17 @@
 // scoreGameOverlay.tsx
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { PublicBaseSelectProps } from 'react-select/dist/declarations/src/Select';
 
 
 interface Team {
-    id: number;
-    name: string;
-    elo: number;
-    wins: number;
-    losses: number;
-    cupDifferential: number;
+  id: number;
+  name: string;
+  points: number;
+  elo: number;
+  wins: number;
+  losses: number;
+  ot_losses: number;
+  cupDifferential: number;
 }
 
 interface teamOption {

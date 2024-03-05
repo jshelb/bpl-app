@@ -20,9 +20,9 @@ const Leaderboard = ({ teams }: LeaderboardProps) => {
   return (
     <div className="w-2/3 p-4">
       <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
-      <table className="w-full border">
+      <table className="w-full border rounded-lg">
         <thead>
-          <tr className="bg-black-200">
+          <tr className="bg-black-200 border">
             <th className="p-2">#</th>
             <th className="p-2">Team Name</th>
             <th className="p-2">Points</th>
