@@ -1,9 +1,11 @@
+import json
 from flask import Flask, jsonify, request
-from api.db_utils import score_game
-from api.scheduler import generate_schedule, schedule_summary
-from db_utils import get_teams, upload_teams
+from scheduler import generate_schedule, schedule_summary
+from db_utils import get_teams, upload_teams, score_game
 
 app = Flask(__name__)
+
+SCHEDULE_FILE = 'api/schedule.json'
 
 # Endpoint to get all teams data
 @app.route("/api/teams")
@@ -82,13 +84,45 @@ def generate_schedule_endpoint():
                 week_data["groups"].append(group_data)
             response["schedule"].append(week_data)
 
-        # Generate and display schedule summary
+        # Generate schedule summary
         summary = schedule_summary(result_schedule)
-        # summary_data = {"total_games": summary["total_games"], "games_per_team": summary["games_per_team"]}
 
         return jsonify({ "scheduleData": response, "summary": summary})
 
     except Exception as e:
+        return jsonify(error=str(e)), 500
+
+@app.route("/api/get_schedule", methods=["GET"])
+def get_schedule_endpoint():
+    try:
+        # Read JSON data from file
+        with open(SCHEDULE_FILE, 'r') as json_file:
+            schedule_data = json.load(json_file)
+
+        return jsonify(schedule_data)
+
+    except Exception as e:
+        return jsonify(error=str(e)), 500
+
+# Endpoint to save schedule data
+@app.route("/api/save_schedule", methods=["POST"])
+def save_schedule():
+    try:
+        # Get schedule data from the request
+        schedule_data = request.get_json()
+
+        print(schedule_data)
+
+        # Write schedule data to the file
+        with open(SCHEDULE_FILE, 'w') as json_file:
+            json.dump(schedule_data, json_file, indent=2)
+
+        # Return success response
+        return jsonify(message="Schedule data saved successfully")
+
+    except Exception as e:
+        print(e)
+        # Handle errors and return an error response
         return jsonify(error=str(e)), 500
 
 if __name__ == "__main__":

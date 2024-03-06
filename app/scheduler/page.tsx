@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RingLoader } from 'react-spinners';
 
 const SchedulePage: React.FC = () => {
@@ -8,6 +8,30 @@ const SchedulePage: React.FC = () => {
   const [numGroups, setNumGroups] = useState<number>(0);
   const [scheduleData, setScheduleData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [saved, setSaved] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchExistingSchedule = async () => {
+      try {
+        setSaved(true);
+        const response = await fetch('/api/get_schedule');
+
+        if (response.ok) {
+          const data = await response.json();
+          setScheduleData(data);
+        } else {
+          throw new Error(`Previous schedule not wound. Status: ${response.status}`);
+        }
+
+        console.log("schedule data fetched successfully");
+      } catch (error) {
+        console.error('Error fetching existing schedule:', error);
+      }
+    };
+
+    fetchExistingSchedule();
+    // renderScheduleTable();
+  }, []); // Run only once on component mount
 
   const handleGenerateSchedule = async () => {
     try {
@@ -28,10 +52,32 @@ const SchedulePage: React.FC = () => {
       // Handle successful schedule generation
       const data = await response.json();
       setScheduleData(data.scheduleData);
+      setSaved(false);
     } catch (error) {
       console.error('Error generating schedule:', error);
     } finally {
       setLoading(false); // Set loading to false after the request completes
+    }
+  };
+
+  const handleSaveSchedule = async () => {
+    try {
+      console.log("attempting to save schedule");
+      // Send a POST request to the specified API endpoint using fetch
+      const response = await fetch('/api/save_schedule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(scheduleData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to save schedule. Status: ${response.status}`);
+      }
+      setSaved(true);
+    } catch (error) {
+      console.error('Error saving schedule:', error);
     }
   };
 
@@ -45,37 +91,40 @@ const SchedulePage: React.FC = () => {
       );
     }
     if (!scheduleData) {
-      return <p className="text-gray-500 mb-4">Input valid numbers to generate schedule</p>;
+      return <p className="text-gray-500 mb-4 mx-4">No schedule exists already. Input valid numbers to generate a new schedule</p>;
     }
 
     return (
-      <table className="border-collapse border w-full">
-      <thead>
-        <tr className="">
-          <th className="p-2">Week</th>
-          {scheduleData.schedule[0].groups.map((group: any) => (
-            <th key={group.group} className="p-2 border border-gray-300">
-              Group {group.group}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {scheduleData.schedule.map((week: any) => (
-          <tr key={week.week} className="border border-gray-300">
-            <td className="p-2 border-r border-gray-300">{week.week}</td>
-            {week.groups.map((group: any) => (
-              <td key={group.group} className="p-2 border-r border-gray-300">
-                {group.teams.map((team: string) => (
-                  <div key={team}>{team}</div>
-                ))}
-              </td>
+      <div>
+        {!saved && <p className="text-gray-500 mb-4 mx-4">Existing schedule shown below, click save schedule button to save</p>}
+        {saved && <p className="text-gray-500 mb-4 mx-4">Schedule saved, it will be here when you come back :)</p>}
+        <table className="border-collapse border w-full">
+        <thead>
+          <tr className="">
+            <th className="p-2">Week</th>
+            {scheduleData.schedule[0].groups.map((group: any) => (
+              <th key={group.group} className="p-2 border border-gray-300">
+                Group {group.group}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
-
+        </thead>
+        <tbody>
+          {scheduleData.schedule.map((week: any) => (
+            <tr key={week.week} className="border border-gray-300">
+              <td className="p-2 border-r border-gray-300">{week.week}</td>
+              {week.groups.map((group: any) => (
+                <td key={group.group} className="p-2 border-r border-gray-300">
+                  {group.teams.map((team: string) => (
+                    <div key={team}>{team}</div>
+                  ))}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     );
   };
 
@@ -111,8 +160,15 @@ const SchedulePage: React.FC = () => {
         <button 
           onClick={handleGenerateSchedule}
           className="bg-green-500 hover:bg-green-600 text-white p-2 rounded-md focus:outline-none">
-          Generate Schedule
-        </button>
+          Generate New Schedule
+        </button> 
+        {!saved && 
+        <button 
+          onClick={handleSaveSchedule}
+          className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md focus:outline-none ml-auto">
+          Save Schedule
+        </button>}
+        
       </div>
 
       {renderScheduleTable()}

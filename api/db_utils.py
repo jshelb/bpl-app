@@ -1,11 +1,13 @@
 import os
 import sqlite3
 
-from api.elo import DEFAULT_ELO, update_elo_in_db_from_game
+from elo import DEFAULT_ELO, update_elo_in_db_from_game
+
+DB_PATH = 'api/bpl_data.db'
 
 # Function to initialize the database with the defined schema
 def init_db():
-    connection = sqlite3.connect('api/bpl_data.db')
+    connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
 
     # Read and execute the schema.sql file
@@ -21,13 +23,11 @@ def get_db_connection():
     """
     Note that paths are relative to the base directory when run via "npm dev" or other root
     """
-    db_path = 'api/bpl_data.db'
-
     # Check if the database file exists, if not, initialize the database
-    if not os.path.exists(db_path):
+    if not os.path.exists(DB_PATH):
         init_db()
 
-    conn = sqlite3.connect(db_path)  # path is relative to base dir
+    conn = sqlite3.connect(DB_PATH)  # path is relative to base dir
     conn.row_factory = sqlite3.Row
     return conn, conn.cursor()
 
