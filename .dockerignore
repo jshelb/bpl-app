@@ -1,0 +1,14 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+
+
+README.md
+.next
+.git
+.pyenv
+scratch.py
+scratch.tsx
+test_insert.py
+test_select.py

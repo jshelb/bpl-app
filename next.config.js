@@ -7,10 +7,12 @@ const nextConfig = {
         destination:
           process.env.NODE_ENV === 'development'
             ? 'http://127.0.0.1:5328/api/:path*'
-            : '/api/',
+            // Change for production backend path
+            : 'http://flask-app:5328/api/:path*',
       },
     ]
   },
+  output: "standalone",
 }
 
 module.exports = nextConfig
