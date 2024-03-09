@@ -10,6 +10,8 @@ services:
       - FLASK_DEBUG=1
     networks:
       - my-network
+    volumes:
+      - bpl-data:/api/data
 
   react-app:
     build:
@@ -24,3 +26,6 @@ services:
 
 networks:
   my-network:
+
+volumes:
+  bpl-data:

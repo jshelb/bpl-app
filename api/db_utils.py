@@ -3,7 +3,7 @@ import sqlite3
 
 from elo import DEFAULT_ELO, update_elo_in_db_from_game
 
-DB_PATH = 'api/bpl_data.db'
+DB_PATH = 'api/data/bpl_data.db'
 
 # Function to initialize the database with the defined schema
 def init_db():

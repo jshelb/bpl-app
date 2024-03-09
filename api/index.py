@@ -5,7 +5,7 @@ from db_utils import get_teams, upload_teams, score_game
 
 app = Flask(__name__)
 
-SCHEDULE_FILE = 'api/schedule.json'
+SCHEDULE_FILE = 'api/data/schedule.json'
 
 # Endpoint to get all teams data
 @app.route("/api/teams")
