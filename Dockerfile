@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10
+FROM python:3.10-slim
 
 # Copy the requirements.txt file to the container at /api
 COPY ./requirements.txt /api/requirements.txt
