@@ -1,9 +1,16 @@
 starter for the bpl-app repo using next/react/flask
 
+## Dashboard Preview
+
+![Dashboard Preview](/public/dashboard.png)
+
 
 TODO:
 
 - navbar? or some navigation back from scheduler
+- use github workflows to generate docker images on push?
+    - requires more strict branch/PR practices
+- note: ngrok.yml is excluded from this repo, it contains the ngrok domain name and api key
 
 ## Getting Started
 
