@@ -1,0 +1,14 @@
+authtoken: ~ # add key here
+api_key: ~ # add key here
+version: 2
+web_addr: 0.0.0.0:4040
+tunnels:
+  bpl-site:
+    addr: react-app:3000
+    basic_auth:
+      - "bob:bobpassword"
+    schemes:
+      - https
+    host_header: "EDIT DOMAIN"
+    proto: http
+    domain: EDIT DOMAIN
