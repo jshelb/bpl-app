@@ -62,8 +62,13 @@ const ScoreGameOverlay: React.FC<ScoreGameOverlayProps> = ({ onClose }) => {
       return false;
     }
 
-    if (cups1 < 0 || cups1 > 30 || cups2 < 0 || cups2 > 30) {
-      setError('Cup counts must be positive integers between 0 and 30');
+    if (cups1 < 0 || cups1 > 11 || cups2 < 0 || cups2 > 11) {
+      setError('Cup counts must be positive integers between 0 and 11');
+      return false;
+    }
+
+    if (cups1 == 10 && cups2 == 10) {
+      setError('Ties are not allowed');
       return false;
     }
 

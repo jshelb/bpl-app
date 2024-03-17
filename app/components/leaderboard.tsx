@@ -23,7 +23,7 @@ const Leaderboard = ({ teams }: LeaderboardProps) => {
       <table className="w-full border rounded-lg">
         <thead>
           <tr className="bg-black-200 border">
-            <th className="p-2">#</th>
+            <th className="p-2">Rank</th>
             <th className="p-2">Team Name</th>
             <th className="p-2">Points</th>
             <th className="p-2">ELO</th>

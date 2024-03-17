@@ -51,15 +51,23 @@ const DashboardPage: React.FC = () => {
     console.log('Navigating to scheduler');
     router.push('/scheduler');
   };
+  const navigateToUserMode = () => {
+    // Implement navigation to scheduler logic
+    console.log('Navigating to user view');
+    router.push('/');
+  };
 
   return (
-    <div className="flex">
-      <Leaderboard teams={teamsData} />
-      <Tools
-        onTeamsUpdate={handleTeamsUpdate}
-        onNavigateToScheduler={handleNavigateToScheduler}
-      />
-    </div>
+    <>
+      <button onClick={navigateToUserMode} className="w-full bg-yellow-500 text-white p-4 rounded shadow">Click to Switch to User Mode</button>
+      <div className="flex">
+        <Leaderboard teams={teamsData} />
+        <Tools
+          onTeamsUpdate={handleTeamsUpdate}
+          onNavigateToScheduler={handleNavigateToScheduler}
+        />
+      </div>
+    </>
   );
 };
 

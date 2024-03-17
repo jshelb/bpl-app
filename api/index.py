@@ -1,7 +1,7 @@
 import json
 from flask import Flask, jsonify, request
 from scheduler import generate_schedule, schedule_summary
-from db_utils import get_teams, upload_teams, score_game
+from db_utils import get_teams, upload_teams, score_game, get_recent_games
 
 app = Flask(__name__)
 
@@ -124,6 +124,15 @@ def save_schedule():
         print(e)
         # Handle errors and return an error response
         return jsonify(error=str(e)), 500
+
+# Endpoint to get all teams data
+@app.route("/api/recent_games")
+def get_recent_games_endpoint():
+    """
+    Retrieves and returns a JSON representation of recent games (10 max)
+    """
+    games_json = get_recent_games()
+    return jsonify(games=games_json)
 
 if __name__ == "__main__":
     app.run(debug=True)

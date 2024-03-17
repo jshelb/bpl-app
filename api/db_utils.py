@@ -64,6 +64,7 @@ def upload_teams(teams):
         # Check if there are existing teams, and remove them
         # TODO: if old season data exists in other tables, we must delete also
         cursor.execute("DELETE FROM Teams")
+        cursor.execute("DELETE FROM Games")
 
         # Insert teams into the database
         insert_team_query = """
@@ -134,3 +135,25 @@ def score_game(team1, team2, cups1, cups2):
         # Log the error or take appropriate action
         print(f"Database query error: {e}")
         return False
+
+def get_recent_games():
+    try:
+        # Get a database connection
+        connection, cursor = get_db_connection()
+
+        # Execute a query to fetch all games data
+        # TODO: limit games returned from this to 10 instead of doing it below
+        cursor.execute("SELECT * FROM Games")
+        games_data = cursor.fetchall()
+        connection.close()
+
+        # Convert the result to a JSON format and return
+        games_json = [dict(row) for row in games_data]
+
+        # return 10 most recent games in db
+        return games_json[::-1] if len(games_json) < 10 else games_json[:-10:-1]
+
+    except Exception as e:
+        # Handle any exceptions, such as database connection errors
+        print(f"Error fetching games: {e}")
+        return []

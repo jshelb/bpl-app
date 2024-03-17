@@ -1,6 +1,6 @@
 # Constants
-EXP_RATE = 400  # You may adjust this based on your requirements
-MAX_ELO = 2150  # Adjust as needed
+EXP_RATE = 400
+MAX_ELO = 2150
 K = 40
 K_high = 20
 DEFAULT_ELO = 1500

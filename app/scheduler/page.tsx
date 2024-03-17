@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { RingLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation';
 
 const SchedulePage: React.FC = () => {
-  const [numWeeks, setNumWeeks] = useState<number>(0);
-  const [numGroups, setNumGroups] = useState<number>(0);
+  const [numWeeks, setNumWeeks] = useState<number>(1);
+  const [numGroups, setNumGroups] = useState<number>(1);
   const [scheduleData, setScheduleData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [saved, setSaved] = useState<boolean>(true);
@@ -91,7 +92,7 @@ const SchedulePage: React.FC = () => {
       );
     }
     if (!scheduleData) {
-      return <p className="text-gray-500 mb-4 mx-4">No schedule exists already. Input valid numbers to generate a new schedule</p>;
+      return <p className="text-gray-500 mb-4 mx-4">No schedule exists already. Input valid season information to generate a new schedule</p>;
     }
 
     return (
@@ -128,8 +129,16 @@ const SchedulePage: React.FC = () => {
     );
   };
 
+  const router = useRouter();
+  const navigateToAdminHome = () => {
+    console.log('Navigating to admin view');
+    router.push('/dashboard');
+  };
+
   return (
     <div className="container mx-auto mt-8 p-4">
+      <button onClick={navigateToAdminHome} className=" mb-4 bg-gray-500 text-white p-4 rounded shadow">Return to Dashboard</button>
+
       <h2 className="text-2xl font-bold mb-4">Scheduling Tool</h2>
 
       <div className="flex space-x-4 mb-4">
