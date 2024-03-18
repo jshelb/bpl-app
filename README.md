@@ -14,7 +14,8 @@
 - **Requirements**: Docker
 - Simply follow these steps:
     1. Install Docker.
-    2. That's it!
+    2. download the `docker-compose.yml` file [here](/deploy/docker-compose.yml).
+    3. run `docker-compose up -d` in the terminal in the same folder as the file
 
 - **Possible Port Issues Troubleshooting**:
     - If you encounter port issues, please refer to Docker documentation for troubleshooting.

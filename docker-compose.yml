@@ -23,26 +23,26 @@ services:
       NODE_ENV: production
     networks:
       - app-network
-      - ngrok-network
+      # - ngrok-network
 
-  ngrok:
-    image: ngrok/ngrok:latest
-    restart: unless-stopped
-    command:
-      - "start"
-      - "--all"
-      - "--config"
-      - "/etc/ngrok.yml"
-    volumes:
-      - ./ngrok.yml:/etc/ngrok.yml
-    ports:
-      - 4040:4040
-    networks:
-      - ngrok-network
+  # ngrok:
+  #   image: ngrok/ngrok:latest
+  #   restart: unless-stopped
+  #   command:
+  #     - "start"
+  #     - "--all"
+  #     - "--config"
+  #     - "/etc/ngrok.yml"
+  #   volumes:
+  #     - ./ngrok.yml:/etc/ngrok.yml
+  #   ports:
+  #     - 4040:4040
+  #   networks:
+  #     - ngrok-network
 
 networks:
   app-network:
-  ngrok-network:
+  # ngrok-network:
 
 volumes:
   bpl-data:
