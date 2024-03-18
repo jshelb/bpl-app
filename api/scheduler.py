@@ -110,7 +110,7 @@ def schedule_summary(result_schedule):
 
     most_played_matchup, most_played_count = max(matchup_counts.items(), key=lambda x: x[1])
 
-    sorted_matchups = sorted(matchup_counts.items(), key=lambda x: x[1], reverse=True)
+    # sorted_matchups = sorted(matchup_counts.items(), key=lambda x: x[1], reverse=True)
 
     summary = {
         "Most Played Matchup": most_played_matchup,

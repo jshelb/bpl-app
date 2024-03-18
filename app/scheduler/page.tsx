@@ -21,7 +21,7 @@ const SchedulePage: React.FC = () => {
           const data = await response.json();
           setScheduleData(data);
         } else {
-          throw new Error(`Previous schedule not wound. Status: ${response.status}`);
+          throw new Error(`Previous schedule not found. Status: ${response.status}`);
         }
 
         console.log("schedule data fetched successfully");
@@ -31,7 +31,6 @@ const SchedulePage: React.FC = () => {
     };
 
     fetchExistingSchedule();
-    // renderScheduleTable();
   }, []); // Run only once on component mount
 
   const handleGenerateSchedule = async () => {

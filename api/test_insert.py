@@ -1,4 +1,5 @@
 import sqlite3
+from db_utils import DB_PATH, delete_game
 
 def insert_team():
     """
@@ -12,7 +13,7 @@ def insert_team():
     """
     try:
         # Get a database connection
-        connection = sqlite3.connect('bpl_data.db')
+        connection = sqlite3.connect(DB_PATH)
         cursor = connection.cursor()
 
         # Insert the test team into the database
@@ -33,5 +34,12 @@ def insert_team():
         # Log the error or take appropriate action
         print(f"Database query error: {e}")
 
+
+def test_delete_game():
+    delete_game(1)
+    return
+
+
+
 if __name__ == "__main__":
-    insert_team()
+    test_delete_game()

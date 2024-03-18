@@ -20,20 +20,3 @@ CREATE TABLE Games (
     FOREIGN KEY (team1) REFERENCES Teams(name),
     FOREIGN KEY (team2) REFERENCES Teams(name)
 );
-
--- Define Schedule table
-CREATE TABLE Schedule (
-    id INTEGER PRIMARY KEY,
-    week INTEGER NOT NULL,
-    group_number INTEGER NOT NULL,
-    FOREIGN KEY (group_number) REFERENCES Groups(group_number)
-);
-
--- Define Groups table
-CREATE TABLE Groups (
-    id INTEGER PRIMARY KEY,
-    group_number INTEGER NOT NULL,
-    team_name TEXT NOT NULL,
-    FOREIGN KEY (team_name) REFERENCES Teams(name),
-    FOREIGN KEY (group_number) REFERENCES Schedule(group_number)
-);

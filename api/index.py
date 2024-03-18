@@ -1,11 +1,11 @@
 import json
 from flask import Flask, jsonify, request
-from scheduler import generate_schedule, schedule_summary
-from db_utils import get_teams, upload_teams, score_game, get_recent_games
+from scheduler import generate_schedule
+from db_utils import get_teams, upload_teams, score_game, get_recent_games, SCHEDULE_FILE
 
 app = Flask(__name__)
 
-SCHEDULE_FILE = 'api/data/schedule.json'
+
 
 # Endpoint to get all teams data
 @app.route("/api/teams")
@@ -85,9 +85,9 @@ def generate_schedule_endpoint():
             response["schedule"].append(week_data)
 
         # Generate schedule summary
-        summary = schedule_summary(result_schedule)
+        # summary = schedule_summary(result_schedule)
 
-        return jsonify({ "scheduleData": response, "summary": summary})
+        return jsonify({ "scheduleData": response})
 
     except Exception as e:
         return jsonify(error=str(e)), 500
@@ -110,8 +110,6 @@ def save_schedule():
     try:
         # Get schedule data from the request
         schedule_data = request.get_json()
-
-        print(schedule_data)
 
         # Write schedule data to the file
         with open(SCHEDULE_FILE, 'w') as json_file:

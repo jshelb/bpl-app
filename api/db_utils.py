@@ -1,9 +1,12 @@
+import json
 import os
 import sqlite3
 
 from elo import DEFAULT_ELO, update_elo_in_db_from_game
 
 DB_PATH = 'api/data/bpl_data.db'
+DB_SCHEMA = 'api/schema.sql'
+SCHEDULE_FILE = 'api/data/schedule.json'
 
 # Function to initialize the database with the defined schema
 def init_db():
@@ -11,7 +14,7 @@ def init_db():
     cursor = connection.cursor()
 
     # Read and execute the schema.sql file
-    with open('api/schema.sql', 'r') as schema_file:
+    with open(DB_SCHEMA, 'r') as schema_file:
         schema_script = schema_file.read()
         cursor.executescript(schema_script)
 
@@ -26,6 +29,11 @@ def get_db_connection():
     # Check if the database file exists, if not, initialize the database
     if not os.path.exists(DB_PATH):
         init_db()
+    
+    # write blank schedule file if one doesn't exist
+    if not os.path.exists(SCHEDULE_FILE):
+        with open(SCHEDULE_FILE, 'w'):
+            pass
 
     conn = sqlite3.connect(DB_PATH)  # path is relative to base dir
     conn.row_factory = sqlite3.Row
@@ -61,8 +69,10 @@ def upload_teams(teams):
             print(f"Invalid request data, received {type(teams)}, expected {list[str]}")
             return False
 
-        # Check if there are existing teams, and remove them
-        # TODO: if old season data exists in other tables, we must delete also
+        # write blank schedule file
+        with open(SCHEDULE_FILE, 'w'):
+            pass
+        # delete all teams and games
         cursor.execute("DELETE FROM Teams")
         cursor.execute("DELETE FROM Games")
 
@@ -109,8 +119,8 @@ def score_game(team1, team2, cups1, cups2):
                 losses = losses + CASE WHEN ? <= 10 AND ? <= 10 AND ? < ? THEN 1 ELSE 0 END,
                 ot_losses = ot_losses + CASE WHEN ? >= 10 AND ? >= 10 AND ? < ? THEN 1 ELSE 0 END,
                 points = points + CASE
-                                WHEN ? > ? THEN 3
                                 WHEN ? >= 10 AND ? >= 10 AND ? <= ? THEN 1
+                                WHEN ? > ? THEN 3
                                 ELSE 0
                             END,
                 cupDifferential = cupDifferential + (? - ?)
@@ -138,10 +148,8 @@ def score_game(team1, team2, cups1, cups2):
 
 def get_recent_games():
     try:
-        # Get a database connection
         connection, cursor = get_db_connection()
 
-        # Execute a query to fetch all games data
         # TODO: limit games returned from this to 10 instead of doing it below
         cursor.execute("SELECT * FROM Games")
         games_data = cursor.fetchall()
@@ -150,10 +158,76 @@ def get_recent_games():
         # Convert the result to a JSON format and return
         games_json = [dict(row) for row in games_data]
 
-        # return 10 most recent games in db
+        # return 10 most recent games in db, reversed so recents first
         return games_json[::-1] if len(games_json) < 10 else games_json[:-10:-1]
 
     except Exception as e:
         # Handle any exceptions, such as database connection errors
         print(f"Error fetching games: {e}")
         return []
+
+def delete_game(gameID):
+    """
+        delete a game and update the leaderboard. Does not currently update ELO calculations
+
+        Args:
+            gameID [int]: id of the game in the database
+    """
+    try:
+        connection, cursor = get_db_connection()
+
+        # get game result and update team info
+        get_game_query = """
+            SELECT * FROM Games
+            WHERE id = ?
+        """
+        result = cursor.execute(get_game_query, (gameID,))
+        result = cursor.fetchone()
+        game = dict(result)
+
+        # Delete the game from db
+        delete_game_query = """
+            DELETE FROM Games
+            WHERE id = ?
+        """
+        cursor.execute(delete_game_query, (gameID,))
+
+        # TODO: handle elo updates or just leave it
+        # also, no error message if game isn't found
+
+        # Now we update the table since the team has been deleted
+        update_teams_query = """
+            UPDATE Teams
+                        SET
+                            wins = wins - CASE WHEN ? > ? THEN 1 ELSE 0 END,
+                            losses = losses - CASE WHEN ? <= 10 AND ? <= 10 AND ? < ? THEN 1 ELSE 0 END,
+                            ot_losses = ot_losses - CASE WHEN ? >= 10 AND ? >= 10 AND ? < ? THEN 1 ELSE 0 END,
+                            points = points - CASE
+                                            WHEN ? >= 10 AND ? >= 10 AND ? <= ? THEN 1
+                                            WHEN ? > ? THEN 3
+                                            ELSE 0
+                                        END,
+                            cupDifferential = cupDifferential - (? - ?)
+                        WHERE name = ?;
+        """
+
+        # update w/l/ot/pts/CD
+        team1_data = (game['cups1'], game['cups2']) * 9 + (game['team1'], )
+        team2_data = (game['cups2'], game['cups1']) * 9 + (game['team2'], )
+
+        cursor.execute(update_teams_query, team1_data)
+        cursor.execute(update_teams_query, team2_data)
+
+        connection.commit()
+        connection.close()
+        return True
+
+    except sqlite3.Error as e:
+        print(f"Database query error: {e}")
+        return False
+
+def recalculate_elo_from_games():
+    """
+        Intended to be used after adding/changing games as the admin
+    """
+    ...
