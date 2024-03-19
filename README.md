@@ -16,6 +16,7 @@
     1. Install Docker.
     2. download the `docker-compose.yml` file [here](/deploy/docker-compose.yml).
     3. run `docker-compose up -d` in the terminal in the same folder as the file
+    4. run `docker-compose down` to end the session (data will be saved for next time)
 
 - **Possible Port Issues Troubleshooting**:
     - If you encounter port issues, please refer to Docker documentation for troubleshooting.

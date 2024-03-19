@@ -1,30 +1,30 @@
-version: '4'
+version: '3'
 # DEPLOYMENT - pulls images
 services:
   flask-app:
-    image: shelbyjm/bpl-app-flask-app:latest  # your Docker Hub image name
+    image: shelbyjm/bpl-app-flask-app:s1  # your Docker Hub image name
 
     ports:
       - "5328:5328"
     environment:
       - FLASK_DEBUG=0
     networks:
-      - app-network
+      - app-network-deploy
     volumes:
-      - bpl-data-deploy:/api/data
+      - bpl-data-deploy:/api/data # data seems to be persisted between tag updates
 
   react-app:
-    image: shelbyjm/bpl-app-react-app:latest  # your Docker Hub image name
+    image: shelbyjm/bpl-app-react-app:s1  # your Docker Hub image name
 
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
     networks:
-      - app-network
+      - app-network-deploy
 
 networks:
-  app-network:
+  app-network-deploy:
 
 volumes:
-  bpl-data:
+  bpl-data-deploy:

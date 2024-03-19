@@ -1,6 +1,7 @@
 version: '3'
 services:
   flask-app:
+    platform: linux/amd64  # Specify target platforms
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,6 +15,7 @@ services:
       - bpl-data:/api/data
 
   react-app:
+    platform: linux/amd64  # Specify target platforms
     build:
       context: .
       dockerfile: Dockerfile.client
