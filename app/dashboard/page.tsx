@@ -52,9 +52,12 @@ const DashboardPage: React.FC = () => {
     router.push('/scheduler');
   };
   const navigateToUserMode = () => {
-    // Implement navigation to scheduler logic
     console.log('Navigating to user view');
     router.push('/');
+  };
+  const handleNavigateToGames = () => {
+    console.log('Navigating to game editor');
+    router.push('/games');
   };
 
   return (
@@ -65,6 +68,7 @@ const DashboardPage: React.FC = () => {
         <Tools
           onTeamsUpdate={handleTeamsUpdate}
           onNavigateToScheduler={handleNavigateToScheduler}
+          onNavigateToGames={handleNavigateToGames}
         />
       </div>
     </>

@@ -1,0 +1,309 @@
+{
+  "schedule": [
+    {
+      "groups": [
+        {
+          "group": 1,
+          "teams": [
+            "Ben/Scott",
+            "Trevor/Maxwell",
+            "Plumly/Blee",
+            "Feng/Jonah",
+            "Wang/Menghini"
+          ]
+        },
+        {
+          "group": 2,
+          "teams": [
+            "Gibby/Lenny",
+            "Pep/Eddie",
+            "Johnny/Liam",
+            "Sanchez/Corona",
+            "Brolund/Holden"
+          ]
+        },
+        {
+          "group": 3,
+          "teams": [
+            "Bill/Deves",
+            "TJ/Carlton",
+            "Furman/Newman",
+            "Redmond/Germond"
+          ]
+        },
+        {
+          "group": 4,
+          "teams": [
+            "Wood/Agabap",
+            "Vinny/Walter",
+            "Palermo/Chord",
+            "Daniel/Morgan"
+          ]
+        },
+        {
+          "group": 5,
+          "teams": [
+            "Halden/Shelby",
+            "Rumpy/Graham",
+            "Meisel/Barry",
+            "AJ/Peterson"
+          ]
+        },
+        {
+          "group": 6,
+          "teams": [
+            "Griffin/Smithee",
+            "Ben/Bruce",
+            "Chorske/Kwon",
+            "Cham/Bradley"
+          ]
+        }
+      ],
+      "week": 1
+    },
+    {
+      "groups": [
+        {
+          "group": 1,
+          "teams": [
+            "Wood/Agabap",
+            "Rumpy/Graham",
+            "Gibby/Lenny",
+            "Bill/Deves",
+            "Wang/Menghini"
+          ]
+        },
+        {
+          "group": 2,
+          "teams": [
+            "Palermo/Chord",
+            "Plumly/Blee",
+            "Meisel/Barry",
+            "Ben/Bruce",
+            "Brolund/Holden"
+          ]
+        },
+        {
+          "group": 3,
+          "teams": [
+            "Chorske/Kwon",
+            "Trevor/Maxwell",
+            "Halden/Shelby",
+            "TJ/Carlton"
+          ]
+        },
+        {
+          "group": 4,
+          "teams": [
+            "Furman/Newman",
+            "Vinny/Walter",
+            "Griffin/Smithee",
+            "Pep/Eddie"
+          ]
+        },
+        {
+          "group": 5,
+          "teams": [
+            "Sanchez/Corona",
+            "Redmond/Germond",
+            "Ben/Scott",
+            "AJ/Peterson"
+          ]
+        },
+        {
+          "group": 6,
+          "teams": [
+            "Daniel/Morgan",
+            "Johnny/Liam",
+            "Feng/Jonah",
+            "Cham/Bradley"
+          ]
+        }
+      ],
+      "week": 2
+    },
+    {
+      "groups": [
+        {
+          "group": 1,
+          "teams": [
+            "Bill/Deves",
+            "Ben/Bruce",
+            "Ben/Scott",
+            "Halden/Shelby",
+            "Gibby/Lenny"
+          ]
+        },
+        {
+          "group": 2,
+          "teams": [
+            "Daniel/Morgan",
+            "Griffin/Smithee",
+            "Trevor/Maxwell",
+            "AJ/Peterson",
+            "Brolund/Holden"
+          ]
+        },
+        {
+          "group": 3,
+          "teams": [
+            "Chorske/Kwon",
+            "Pep/Eddie",
+            "Rumpy/Graham",
+            "Feng/Jonah"
+          ]
+        },
+        {
+          "group": 4,
+          "teams": [
+            "Wang/Menghini",
+            "TJ/Carlton",
+            "Johnny/Liam",
+            "Vinny/Walter"
+          ]
+        },
+        {
+          "group": 5,
+          "teams": [
+            "Palermo/Chord",
+            "Sanchez/Corona",
+            "Plumly/Blee",
+            "Furman/Newman"
+          ]
+        },
+        {
+          "group": 6,
+          "teams": [
+            "Redmond/Germond",
+            "Wood/Agabap",
+            "Meisel/Barry",
+            "Cham/Bradley"
+          ]
+        }
+      ],
+      "week": 3
+    },
+    {
+      "groups": [
+        {
+          "group": 1,
+          "teams": [
+            "Griffin/Smithee",
+            "Gibby/Lenny",
+            "Meisel/Barry",
+            "Feng/Jonah",
+            "TJ/Carlton"
+          ]
+        },
+        {
+          "group": 2,
+          "teams": [
+            "Chorske/Kwon",
+            "Bill/Deves",
+            "AJ/Peterson",
+            "Palermo/Chord",
+            "Johnny/Liam"
+          ]
+        },
+        {
+          "group": 3,
+          "teams": [
+            "Pep/Eddie",
+            "Wang/Menghini",
+            "Cham/Bradley",
+            "Halden/Shelby"
+          ]
+        },
+        {
+          "group": 4,
+          "teams": [
+            "Vinny/Walter",
+            "Sanchez/Corona",
+            "Trevor/Maxwell",
+            "Ben/Bruce"
+          ]
+        },
+        {
+          "group": 5,
+          "teams": [
+            "Daniel/Morgan",
+            "Rumpy/Graham",
+            "Redmond/Germond",
+            "Plumly/Blee"
+          ]
+        },
+        {
+          "group": 6,
+          "teams": [
+            "Ben/Scott",
+            "Furman/Newman",
+            "Brolund/Holden",
+            "Wood/Agabap"
+          ]
+        }
+      ],
+      "week": 4
+    },
+    {
+      "groups": [
+        {
+          "group": 1,
+          "teams": [
+            "Daniel/Morgan",
+            "Furman/Newman",
+            "Chorske/Kwon",
+            "Sanchez/Corona",
+            "Wang/Menghini"
+          ]
+        },
+        {
+          "group": 2,
+          "teams": [
+            "TJ/Carlton",
+            "Cham/Bradley",
+            "Rumpy/Graham",
+            "Ben/Scott",
+            "Palermo/Chord"
+          ]
+        },
+        {
+          "group": 3,
+          "teams": [
+            "Feng/Jonah",
+            "Ben/Bruce",
+            "Brolund/Holden",
+            "Redmond/Germond"
+          ]
+        },
+        {
+          "group": 4,
+          "teams": [
+            "Meisel/Barry",
+            "Trevor/Maxwell",
+            "Pep/Eddie",
+            "Bill/Deves"
+          ]
+        },
+        {
+          "group": 5,
+          "teams": [
+            "Johnny/Liam",
+            "Griffin/Smithee",
+            "Wood/Agabap",
+            "Halden/Shelby"
+          ]
+        },
+        {
+          "group": 6,
+          "teams": [
+            "Vinny/Walter",
+            "Gibby/Lenny",
+            "Plumly/Blee",
+            "AJ/Peterson"
+          ]
+        }
+      ],
+      "week": 5
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-// Leaderboard.tsx
+// gamesTable.tsx
 import React from 'react';
 
 interface Game {
@@ -9,17 +9,18 @@ interface Game {
   cups2: number;
 }
 
-interface recentGamesProps {
+interface gamesTableProps {
   games: Game[];
 }
 
-const RecentGames = ({ games }: recentGamesProps) => {
+const GamesTable = ({ games }: gamesTableProps) => {
   return (
     <div className="">
-      <h2 className="text-2xl font-bold my-4">Recent Games</h2>
+      <h2 className="text-2xl font-bold my-4">All Games</h2>
       <table className="w-full border rounded-lg">
         <thead>
           <tr className="bg-black-200 border">
+            <th className="p-2">Game ID</th>
             <th className="p-2">Team 1</th>
             <th className="p-2">Team 2</th>
             <th className="p-2">Score</th>
@@ -28,6 +29,7 @@ const RecentGames = ({ games }: recentGamesProps) => {
         <tbody>
           {games.map((game) => (
             <tr key={game.id}>
+                <td className="p-2 text-center">{game.id}</td>
                 <td className="p-2 text-center">{game.team1}</td>
                 <td className="p-2 text-center">{game.team2}</td>
                 <td className="p-2 text-center">{game.cups1 + " - " + game.cups2}</td>
@@ -39,4 +41,4 @@ const RecentGames = ({ games }: recentGamesProps) => {
   );
 };
 
-export default RecentGames;
+export default GamesTable;

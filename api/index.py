@@ -1,7 +1,7 @@
 import json
 from flask import Flask, jsonify, request
 from scheduler import generate_schedule
-from db_utils import get_teams, upload_teams, score_game, get_recent_games, SCHEDULE_FILE
+from db_utils import *
 
 app = Flask(__name__)
 
@@ -123,7 +123,6 @@ def save_schedule():
         # Handle errors and return an error response
         return jsonify(error=str(e)), 500
 
-# Endpoint to get all teams data
 @app.route("/api/recent_games")
 def get_recent_games_endpoint():
     """
@@ -131,6 +130,40 @@ def get_recent_games_endpoint():
     """
     games_json = get_recent_games()
     return jsonify(games=games_json)
+
+# Endpoint to get all teams data
+@app.route("/api/games")
+def get_all_games_endpoint():
+    """
+    Retrieves and returns a JSON representation of all games played
+    """
+    games_json = get_all_games()
+    return jsonify(games=games_json)
+
+
+# Endpoint to delete a game
+@app.route("/api/delete_game", methods=["POST"])
+def delete_game_endpoint():
+    try:
+        # Get schedule data from the request
+        game = request.get_json()
+        game_id = game['id']
+
+        success = delete_game(game_id)
+
+        if not success:
+            raise Exception(f"unable to remove game with id: {game_id}") 
+
+        # Return success response
+        return jsonify(message="game removed successfully")
+
+    except Exception as e:
+        print(e)
+        # Handle errors and return an error response
+        return jsonify(error=str(e)), 500
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

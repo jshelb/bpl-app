@@ -45,7 +45,7 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  // Fetch teams data from /api/teams
+  // Fetch games data from /api/recent_games
   const fetchGamesData = async () => {
     console.log("fetching recent games");
     try {

@@ -6,9 +6,10 @@ import ScoreGameOverlay from './scoreGameOverlay';
 interface ToolsProps {
   onTeamsUpdate: () => void;
   onNavigateToScheduler: () => void;
+  onNavigateToGames: () => void;
 }
 
-const Tools: React.FC<ToolsProps> = ({ onTeamsUpdate, onNavigateToScheduler }) => {
+const Tools: React.FC<ToolsProps> = ({ onTeamsUpdate, onNavigateToScheduler, onNavigateToGames }) => {
   const [isNewSeasonOverlayVisible, setNewSeasonOverlayVisible] = useState(false);
   const [isScoreGameOverlayVisible, setScoreGameOverlayVisible] = useState(false); // Add state for ScoreGameOverlay
 
@@ -31,6 +32,7 @@ const Tools: React.FC<ToolsProps> = ({ onTeamsUpdate, onNavigateToScheduler }) =
       <h2 className="text-2xl font-bold mb-4">Tools</h2>
       <div className="space-y-4">
         <button onClick={handleScoreGameClick} className="w-full bg-blue-500 text-white p-4 rounded shadow">Score Game</button>
+        <button onClick={onNavigateToGames} className="w-full bg-orange-300 text-gray-700 p-4 rounded shadow">Manage Games</button>
         <button onClick={onNavigateToScheduler} className="w-full bg-green-500 text-white p-4 rounded shadow">Scheduling Tool</button>
         <button onClick={handleNewSeasonClick} className="w-full bg-gray-300 text-gray-700 p-4 rounded shadow">Create New Season</button>
       </div>

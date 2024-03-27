@@ -166,6 +166,25 @@ def get_recent_games():
         print(f"Error fetching games: {e}")
         return []
 
+def get_all_games():
+    try:
+        connection, cursor = get_db_connection()
+
+        # TODO: limit games returned from this to 10 instead of doing it below
+        cursor.execute("SELECT * FROM Games")
+        games_data = cursor.fetchall()
+        connection.close()
+
+        # Convert the result to a JSON format and return
+        games_json = [dict(row) for row in games_data]
+
+        return games_json[::-1] # reversed order
+
+    except Exception as e:
+        # Handle any exceptions, such as database connection errors
+        print(f"Error fetching games: {e}")
+        return []
+
 def delete_game(gameID):
     """
         delete a game and update the leaderboard. Does not currently update ELO calculations
