@@ -23,3 +23,5 @@ echo "Opening http://localhost:3000/dashboard in the default web browser..."
 
 # Open localhost:3000/dashboard in the default web browser
 open "http://localhost:3000/dashboard"
+
+echo "Remember to run stop.sh to stop the app"
