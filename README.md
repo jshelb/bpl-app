@@ -1,6 +1,30 @@
 
 # For the Commish
 
+### Running the App
+
+1. **Install Docker**:
+   - Before running the app, make sure you have Docker installed. You can download and install Docker from [here](https://docs.docker.com/engine/install/).
+   - you can easily check if you have docker by checking your system for the Docker desktop app (search your applications)
+
+2. **Download the App Bundle**:
+   - Download the app bundle [StartApp.zip](StartApp.zip). This bundle includes the necessary scripts and configurations for running the app.
+   - After downloading `StartApp.zip`, unzip the bundle to extract its contents. You can typically do this by double-clicking the zip file or using a utility like `unzip` on the command line.
+
+
+3. **Run the App**:
+   - Open `start.sh` with Terminal to run the app.
+   - If you encounter issues opening `start.sh`, follow these steps:
+     - Right-click on `start.sh`.
+     - Choose "Open With" -> "Other" -> "All Applications" -> Select "Terminal" -> Check "Always Open With".
+   - Running `start.sh` will start the app and open a browser window. Refresh the browser to view the app.
+
+4. **Stop the App**:
+   - To stop the app, open `stop.sh` with Terminal using the same steps outlined above for `start.sh`.
+   - Running `stop.sh` will gracefully stop the app and clean up any resources it was using.
+
+
+
 ## Admin Dashboard v2
 
 ![Admin Dashboard Preview](/public/adminv2.png)
@@ -9,7 +33,7 @@
 
 ![User Dashboard Preview](/public/userv2.png)
 
-### Installation and Running the App
+### (Deprecated - see above for updated info) Installation and Running the App 
 
 - **Requirements**: Docker
 - Simply follow these steps:
