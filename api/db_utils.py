@@ -250,3 +250,31 @@ def recalculate_elo_from_games():
         Intended to be used after adding/changing games as the admin
     """
     ...
+
+def set_cup_diff(teamName: str, newDiff: int):
+    try:
+        # Get a database connection
+        connection, cursor = get_db_connection()
+
+        cursor.execute("SELECT COUNT(*) FROM Teams WHERE name = ?", (teamName,))
+
+        # check if team in DB
+        if not cursor.fetchone()[0] > 0:
+            print(f"Team '{teamName}' does not exist in the database.")
+            connection.close()
+            return False
+
+
+        cursor.execute("UPDATE Teams SET cupDifferential = ? WHERE name = ?", (newDiff, teamName))
+
+        connection.commit()
+        connection.close()
+
+        print(f"updated diff to {newDiff}")
+
+        return True
+
+    except sqlite3.Error as e:
+        # Log the error or take appropriate action
+        print(f"Database query error: {e}")
+        return False

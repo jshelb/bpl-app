@@ -1,5 +1,5 @@
 import sqlite3
-from db_utils import DB_PATH, delete_game
+from db_utils import DB_PATH, delete_game, set_cup_diff
 
 def insert_team():
     """
@@ -39,7 +39,10 @@ def test_delete_game():
     delete_game(1)
     return
 
+def test_set_cup_diff():
+    set_cup_diff(teamName="Halden/Shelby", newDiff=23)
+
 
 
 if __name__ == "__main__":
-    test_delete_game()
+    test_set_cup_diff()
